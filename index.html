@@ -1,0 +1,85 @@
+	<!DOCTYPE html>
+	<html lang="es">
+	<head>
+	  <meta charset="UTF-8">
+	  <title>Día del padre - iCo Medios</title>
+	  <meta http-equiv="refresh" content="180">
+	  <style>
+	    html, body {
+	      margin: 0;
+	      padding: 0;
+	      background-color: #ffffff;
+	      overflow: hidden;
+	    }
+	
+	    .contenedor {
+	      width: 2560px;
+	      height: 1440px;
+	      position: relative;
+	      margin: 0 auto;
+	      overflow: hidden;
+	    }
+	
+	    video#fondoVideo {
+	      width: 2560px;
+	      height: 1440px;
+	      position: absolute;
+		  top: 0;
+	      left: 0;
+	      object-fit: cover;
+	      z-index: 0;
+	    }
+	
+	    .mensaje {
+	      position: absolute;
+	      bottom: 640px;
+	      left: 620px;
+		   z-index: 1; 
+	      font-weight: bold;
+	      color: black;
+	      font-size: 5.8em;
+	      font-style: normal;
+	      font-family: 'Open Sans', sans-serif;
+	      opacity: 0;
+	      transition: opacity 0.9s ease-in;
+	    }
+	
+	    .mensaje.mostrar {
+	      opacity: 1;
+	    }
+	  </style>
+	</head>
+	<body>
+	  <div class="contenedor">
+	    <video autoplay loop muted playsinline id="fondoVideo">
+	      <source src="fondo.mp4" type="video/mp4">
+	      Tu navegador no soporta video.
+	    </video>
+	
+	    <div id="nombres">
+	      <div class="mensaje para"></div>
+	    </div>
+	  </div>
+	
+	  <script>
+	    const url = "https://script.googleusercontent.com/macros/echo?user_content_key=AehSKLiDfYVaMduIs9WHlDjmGzOpJrIgtK9XVnLpNIm0DmHGuXx6HIDBTGWqrCzC1b4du8gbhJdGmgB22B2eiXP6qnqBO3IcPbP777-edEwSlPy56uGgcbMlvnBPRew9orFipJ-r2mWkCCyDw2NjMMmba31kwK9fRuSf3Mj7ce_auTgp838t_lUxeMxCiCuxRCJ8X5rzMfvBb_WRqGBIXrc73sGwBKEGJcZVb5i_fk8Yrh52ekyrXJVr37PdoIF563QFtdin_dN8AHBf_tCOKXCSPhCC5Ee-ZA&lib=Moi3ObCv8QNP1h1E0H7ueAZ-pvmjiA198";
+	
+	    fetch(url)
+	      .then(res => res.json())
+	      .then(aprobados => {
+	        const contenedorMensaje = document.querySelector(".para");
+	
+	        if (aprobados.length > 0) {
+	          const elegido = aprobados[Math.floor(Math.random() * aprobados.length)];
+	          contenedorMensaje.innerText = elegido.para.toUpperCase();
+	        } else {
+	          contenedorMensaje.innerText = "--";
+	        }
+	
+	        setTimeout(() => {
+	          contenedorMensaje.classList.add("mostrar");
+	        }, 1000); // Puedes bajar a 500 si lo quieres aún más rápido
+	      });
+	  </script>
+	</body>
+	</html>
