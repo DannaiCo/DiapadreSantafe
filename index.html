@@ -63,27 +63,42 @@
 	  </div>
 	
 	  <script>
-	    const url = "https://script.googleusercontent.com/macros/echo?user_content_key=AehSKLgame_n8VdeMwBHTdevppmgi_dhviOcuhIvI8lQY5wS9hHkJDXHhTBnHphTaMP3dnKYI_V2JuTZk46ixsxvt8nsNdpuIBlXf4HDBzGgT4NpOhe5X3Tos7a3hhwovK8SzhHznjYIjDTkAV-VNTRtbLaWFFBunot3JbklHEU3E8Lm3iYTuJkld-hMk9_xxBwWBTp34fMeatx55U474n7Qh-j3UgzPyRaiRbCLaF7AL4zgtOv_eoXHlu8olioLTuZ5s_UsLHS-TssnucOdD5WyfmcaJSpm-Q&lib=Mm4zjWoDqAAZ5NNXP28Ujy5-pvmjiA198";
-	
-	    fetch(url)
-	      .then(res => res.json())
-	      .then(aprobados => {
-	        const contenedorMensaje = document.querySelector(".para");
-	
-	        if (aprobados.length > 0) {
-	          const elegido = aprobados[Math.floor(Math.random() * aprobados.length)];
-	          contenedorMensaje.innerText = elegido.para.toUpperCase();
-	        } else {
-	          contenedorMensaje.innerText = "--";
-	        }
-	
-	        setTimeout(() => {
-	          contenedorMensaje.classList.add("mostrar");
-	        }, 500); // Puedes bajar a 500 si lo quieres aún más rápido
-	      });
-	  </script>
+  const url = "https://script.googleusercontent.com/macros/echo?user_content_key=AehSKLgame_n8VdeMwBHTdevppmgi_dhviOcuhIvI8lQY5wS9hHkJDXHhTBnHphTaMP3dnKYI_V2JuTZk46ixsxvt8nsNdpuIBlXf4HDBzGgT4NpOhe5X3Tos7a3hhwovK8SzhHznjYIjDTkAV-VNTRtbLaWFFBunot3JbklHEU3E8Lm3iYTuJkld-hMk9_xxBwWBTp34fMeatx55U474n7Qh-j3UgzPyRaiRbCLaF7AL4zgtOv_eoXHlu8olioLTuZ5s_UsLHS-TssnucOdD5WyfmcaJSpm-Q&lib=Mm4zjWoDqAAZ5NNXP28Ujy5-pvmjiA198";
+
+  fetch(url)
+    .then(res => res.json())
+    .then(aprobados => {
+      const contenedorMensaje = document.querySelector(".para");
+
+      if (!aprobados || aprobados.length === 0) {
+        contenedorMensaje.innerText = "--";
+        return;
+      }
+
+      // índice inicial aleatorio
+      let index = Math.floor(Math.random() * aprobados.length);
+
+      function mostrarNombre(i) {
+        contenedorMensaje.classList.remove("mostrar");
+        setTimeout(() => {
+          contenedorMensaje.innerText = (aprobados[i].para || "--").toUpperCase();
+          contenedorMensaje.classList.add("mostrar");
+        }, 300); // breve fade-out antes del cambio
+      }
+
+      // mostrar el primero
+      mostrarNombre(index);
+
+      // rotar cada 5 segundos
+      setInterval(() => {
+        index = (index + 1) % aprobados.length;
+        mostrarNombre(index);
+      }, 5000);
+    });
+</script>
 	</body>
 	</html>
+
 
 
 
