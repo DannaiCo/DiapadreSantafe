@@ -1,119 +1,128 @@
-	<!DOCTYPE html>
-	<html lang="es">
-	<head>
-	  <meta charset="UTF-8">
-	  <title>Día del padre - iCo Medios</title>
-	  <meta http-equiv="refresh" content="180">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&display=swap" rel="stylesheet">
-		
-	  <style>
-	    html, body {
-	      margin: 0;
-	      padding: 0;
-	      background-color: #ffffff;
-	      overflow: hidden;
-	    }
-	.contenedor {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-	    }
-	
-	    video#fondoVideo {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 0;
-}
-	
-	    .mensaje {
-	      position: absolute;
-	      bottom: -1vh;
-	      left: 50%;
-		   z-index: 2;
-	      color: #1A3869;
-	      font-size: 4vw;
-	      font-style: normal;
-	      font-family: "Berkshire Swash", serif;
-		  font-weight: 400;
-	      opacity: 0;
-	      transition: opacity 0.9s ease-in;
-	    }
+	<!DOCTYPE html> 
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Día del padre - iCo Medios</title>
+  <meta http-equiv="refresh" content="180">
 
-		  #nombres {
-  position: absolute;
-  bottom: 5vh;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80vw;
-  text-align: center;
-  z-index: 3;
-}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&display=swap" rel="stylesheet">
 
-.mensaje {
-  position: relative; /* <-- Cambia solo esto */
-  left: 0;            /* <-- Quita el centrado anterior */
-  transform: none;    /* <-- Quita offset previo */
-}
-	
-	    .mensaje.mostrar {
-	      opacity: 1;
-	    }
-	  </style>
-	</head>
-	<body>
-	  <div class="contenedor">
-	    <video autoplay loop muted playsinline id="fondoVideo">
-	      <source src="fondo.mp4" type="video/mp4">
-	      Tu navegador no soporta video.
-	    </video>
-	
-	    <div id="nombres">
-	      <div class="mensaje para"></div>
-	    </div>
-	  </div>
-	
-	  <script>
-  const url = "https://script.google.com/macros/s/AKfycbwdj28x2XpZ4nrzo8R67KA3E-OSm44CWrPCXRntUuJxBoZVOjPUeR_tyaSWTj7DIs9CVQ/exec";
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: #ffffff;
+      overflow: hidden;
+    }
 
-  fetch(url)
-    .then(res => res.json())
-    .then(aprobados => {
-      const contenedorMensaje = document.querySelector(".para");
+    .contenedor {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+    }
 
-      if (!aprobados || aprobados.length === 0) {
-        contenedorMensaje.innerText = "--";
-        return;
-      }
+    video#fondoVideo {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
 
-      // índice inicial aleatorio
-      let index = Math.floor(Math.random() * aprobados.length);
+    #nombres {
+      position: absolute;
+      bottom: 5vh;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80vw;
+      text-align: center;
+      z-index: 3;
+    }
 
-      function mostrarNombre(i) {
-        contenedorMensaje.classList.remove("mostrar");
-        setTimeout(() => {
-          contenedorMensaje.innerText = (aprobados[i].para || "--").toUpperCase();
-          contenedorMensaje.classList.add("mostrar");
-        }, 300); // breve fade-out antes del cambio
-      }
+    .mensaje {
+      position: relative;
+      color: #1A3869;
+      font-size: 4vw;
+      font-family: "Berkshire Swash", serif;
+      font-weight: 400;
+      opacity: 0;
+      transition: opacity 0.9s ease-in;
+      margin: 1vh 0;
+    }
 
-      // mostrar el primero
-      mostrarNombre(index);
+    .mensaje.mostrar {
+      opacity: 1;
+    }
+  </style>
+</head>
 
-      // rotar cada 5 segundos
-      setInterval(() => {
-        index = (index + 1) % aprobados.length;
-        mostrarNombre(index);
-      }, 5000);
-    });
-</script>
-	</body>
-	</html>
+<body>
+  <div class="contenedor">
+    <video autoplay loop muted playsinline id="fondoVideo">
+      <source src="fondo.mp4" type="video/mp4">
+      Tu navegador no soporta video.
+    </video>
+
+    <div id="nombres">
+      <div class="mensaje nombre"></div>
+      <div class="mensaje deseo1"></div>
+      <div class="mensaje deseo2"></div>
+    </div>
+  </div>
+
+  <script>
+    const url = "https://script.google.com/macros/s/AKfycbwdj28x2XpZ4nrzo8R67KA3E-OSm44CWrPCXRntUuJxBoZVOjPUeR_tyaSWTj7DIs9CVQ/exec";
+
+    fetch(url)
+      .then(res => res.json())
+      .then(aprobados => {
+        const elNombre = document.querySelector(".nombre");
+        const elDeseo1 = document.querySelector(".deseo1");
+        const elDeseo2 = document.querySelector(".deseo2");
+
+        if (!aprobados || aprobados.length === 0) {
+          elNombre.textContent = "--";
+          elDeseo1.textContent = "";
+          elDeseo2.textContent = "";
+          return;
+        }
+
+        let index = Math.floor(Math.random() * aprobados.length);
+
+        function mostrar(i) {
+          elNombre.classList.remove("mostrar");
+          elDeseo1.classList.remove("mostrar");
+          elDeseo2.classList.remove("mostrar");
+
+          setTimeout(() => {
+            const item = aprobados[i];
+
+            elNombre.textContent = (item.nombre || "--").toUpperCase();
+            elDeseo1.textContent = item.deseo1 ? `• ${item.deseo1}` : "";
+            elDeseo2.textContent = item.deseo2 ? `• ${item.deseo2}` : "";
+
+            elNombre.classList.add("mostrar");
+            elDeseo1.classList.add("mostrar");
+            elDeseo2.classList.add("mostrar");
+          }, 300);
+        }
+
+        mostrar(index);
+
+        setInterval(() => {
+          index = (index + 1) % aprobados.length;
+          mostrar(index);
+        }, 5000);
+      });
+  </script>
+</body>
+</html>
+
+
 
 
 
