@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&display=swap" rel="stylesheet">
 
-  <style>
+ <style>
     html, body {
       margin: 0;
       padding: 0;
@@ -33,15 +33,38 @@
       z-index: 0;
     }
 
+    /* ----- Contenedor general ----- */
     #nombres {
       position: absolute;
-      bottom: 5vh;
+      bottom: 5vh;           /* mueve todo el bloque */
       left: 50%;
       transform: translateX(-50%);
       width: 80vw;
       text-align: center;
       z-index: 3;
     }
+
+   /* ----- Posiciones individuales ----- */
+.nombre {
+  position: absolute;
+  top: 0vh;     /* súbelo o bájalo */
+  left: 0;
+  width: 100%;
+}
+
+.deseo1 {
+  position: absolute;
+  top: 6vh;     /* súbelo o bájalo */
+  left: 0;
+  width: 100%;
+}
+
+.deseo2 {
+  position: absolute;
+  top: 12vh;    /* súbelo o bájalo */
+  left: 0;
+  width: 100%;
+}
 
     .mensaje {
       position: relative;
@@ -121,6 +144,7 @@
   </script>
 </body>
 </html>
+
 
 
 
